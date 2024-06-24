@@ -6,42 +6,63 @@ import PostShow from "./pages/PostShow"
 import PostEdit from "./pages/PostEdit"
 import PostCreate from "./pages/PostCreate"
 import { GlobalProvider } from "./contexts/GlobalContext"
+import AuthPage from "./middlewares/AuthPage"
+import { AuthProvider } from "./contexts/AuthContext"
+import Login from "./pages/Login"
 
 function App() {
   return (
     <BrowserRouter>
-
       <GlobalProvider>
+        <AuthProvider>
 
-        <Routes>
+          <Routes>
 
-          <Route path="/" element={<DefaultLayout />}>
+            {/* Rotte pubbliche */}
+            <Route path="/" element={<DefaultLayout />}>
 
-            {/* Home */}
-            <Route index element={<Home />} />
+              {/* Home */}
+              <Route index element={<Home />} />
 
-            <Route path="posts" >
+              <Route path="posts" >
 
-              {/* Index */}
-              <Route index element={<Posts />} />
-              <Route path=":slug">
+                {/* Index */}
+                <Route index element={<Posts />} />
 
-                {/* Show */}
-                <Route index element={<PostShow />} />
+                <Route path=":slug">
 
-                {/* Edit */}
-                <Route path="edit" element={<PostEdit />} />
+                  {/* Show */}
+                  <Route index element={<PostShow />} />
+
+                </Route>
 
               </Route>
 
-              {/* Create */}
-              <Route path="create" element={<PostCreate />} />
+              {/* Rotta Login */}
+              <Route path="login" element={<Login />} />
 
+            </Route >
+
+            {/* Rotte private */}
+            <Route path="/" element={<AuthPage><DefaultLayout /></AuthPage>}>
+              <Route path="posts" >
+
+                <Route path=":slug">
+
+                  {/* Edit */}
+                  <Route path="edit" element={<PostEdit />} />
+
+                </Route>
+
+                {/* Create */}
+                <Route path="create" element={<PostCreate />} />
+
+              </Route>
             </Route>
 
-          </Route >
+          </Routes>
 
-        </Routes>
+        </AuthProvider>
       </GlobalProvider>
     </BrowserRouter>
   )

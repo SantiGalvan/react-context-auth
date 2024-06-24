@@ -1,4 +1,4 @@
-import Form from "../components/Form/Form";
+import Form from "../components/Forms/Form";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";

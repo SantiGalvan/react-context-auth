@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import Form from "../components/Form/Form";
+import Form from "../components/Forms/Form";
 
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
