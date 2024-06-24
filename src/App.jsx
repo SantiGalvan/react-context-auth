@@ -5,39 +5,44 @@ import Posts from "./pages/Posts"
 import PostShow from "./pages/PostShow"
 import PostEdit from "./pages/PostEdit"
 import PostCreate from "./pages/PostCreate"
+import { GlobalProvider } from "./contexts/GlobalContext"
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
 
-        <Route path="/" element={<DefaultLayout />}>
+      <GlobalProvider>
 
-          {/* Home */}
-          <Route index element={<Home />} />
+        <Routes>
 
-          <Route path="posts" >
+          <Route path="/" element={<DefaultLayout />}>
 
-            {/* Index */}
-            <Route index element={<Posts />} />
-            <Route path=":slug">
+            {/* Home */}
+            <Route index element={<Home />} />
 
-              {/* Show */}
-              <Route index element={<PostShow />} />
+            <Route path="posts" >
 
-              {/* Edit */}
-              <Route path="edit" element={<PostEdit />} />
+              {/* Index */}
+              <Route index element={<Posts />} />
+              <Route path=":slug">
+
+                {/* Show */}
+                <Route index element={<PostShow />} />
+
+                {/* Edit */}
+                <Route path="edit" element={<PostEdit />} />
+
+              </Route>
+
+              {/* Create */}
+              <Route path="create" element={<PostCreate />} />
 
             </Route>
 
-            {/* Create */}
-            <Route path="create" element={<PostCreate />} />
+          </Route >
 
-          </Route>
-
-        </Route >
-
-      </Routes>
+        </Routes>
+      </GlobalProvider>
     </BrowserRouter>
   )
 }

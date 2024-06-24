@@ -9,24 +9,15 @@ const PostCreate = () => {
 
     const navigate = useNavigate();
 
-    const [tags, setTags] = useState([]);
-    const fetchTags = async () => {
-        const res = await axios.get(`${apiUrl}/tags`);
-        const apiTags = res.data;
-        setTags(apiTags);
-    }
+    const createPost = async (formData) => {
+        const res = await axios.post(`${apiUrl}/posts`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
 
-    const [categories, setCategories] = useState([]);
-    const fetchCategories = async () => {
-        const res = await axios.get(`${apiUrl}/categories`);
-        const apiCategories = res.data;
-        setCategories(apiCategories);
+        if (res.status < 400) navigate(`/posts/${res.data.slug}`);
     }
-
-    useEffect(() => {
-        fetchTags();
-        fetchCategories();
-    }, [])
 
     return (
         <section className="container">
@@ -39,11 +30,7 @@ const PostCreate = () => {
                 </button>
                 <h1>Crea il tuo Post</h1>
             </div>
-            <Form
-                tags={tags}
-                categories={categories}
-                onCreate={data => navigate(`/posts/${data.slug}`)}
-            />
+            <Form onSubmit={createPost} />
         </section>
     )
 }

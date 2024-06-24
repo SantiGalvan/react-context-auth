@@ -46,7 +46,7 @@ const Card = ({ title, content, category, tags, user, slug, image, isShow, onDel
             {isShow ?
                 <div className="card-footer d-flex justify-content-between gap-3">
                     <button
-                        onClick={() => { navigate(-1) }}
+                        onClick={() => { navigate('/posts') }}
                         className='btn btn-secondary d-flex align-items-center gap-1'
                     >
                         <FaArrowLeft />Torna indietro

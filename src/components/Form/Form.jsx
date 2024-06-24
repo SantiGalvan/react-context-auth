@@ -2,23 +2,23 @@ import { TiPlus } from "react-icons/ti";
 import { BsArrowClockwise } from "react-icons/bs";
 import axios from "axios";
 import { useState } from "react";
+import { useGlobal } from "../../contexts/GlobalContext";
 
 const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
-const Form = ({ tags, categories, onCreate }) => {
+const Form = ({ dataEdit, onSubmit }) => {
 
-    const initialData = {
+    const { tags, categories } = useGlobal();
+
+    const initialData = dataEdit || {
         title: '',
         content: '',
         image: '',
         categoryId: '',
-        published: true,
+        published: '',
         tags: []
     }
     const [formData, setFormData] = useState(initialData);
-
-
-
 
     const handleField = (key, value) => {
         setFormData(curr => ({ ...curr, [key]: value }));
@@ -34,14 +34,8 @@ const Form = ({ tags, categories, onCreate }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await axios.post(`${apiUrl}/posts`, formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
+        onSubmit(formData);
         setFormData(initialData);
-
-        if (res.status < 400) onCreate(res.data);
     }
 
     return (
@@ -123,6 +117,7 @@ const Form = ({ tags, categories, onCreate }) => {
                                 id="content"
                                 rows="6"
                                 onChange={(e) => handleField('content', e.target.value)}
+                                value={formData.content}
                             ></textarea>
                         </div>
 
