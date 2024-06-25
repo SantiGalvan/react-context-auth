@@ -1,10 +1,8 @@
-import axios from "axios";
+import axios from "../utils/axiosClient.js";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Card from "../components/Card/Card";
 import Modal from "../components/Modal/Modal";
-
-const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 const PostShow = () => {
 
@@ -16,13 +14,13 @@ const PostShow = () => {
     const [deleteMode, setDeleteMode] = useState(false);
 
     const fetchPost = async () => {
-        const res = await axios.get(`${apiUrl}/posts/${slug}`);
+        const res = await axios.get(`/posts/${slug}`);
         const newPost = res.data;
         setPost(newPost);
     }
 
     const deletePost = async (slug) => {
-        const res = await axios.delete(`${apiUrl}/posts/${slug}`);
+        const res = await axios.delete(`/posts/${slug}`);
         navigate(-1);
     }
 

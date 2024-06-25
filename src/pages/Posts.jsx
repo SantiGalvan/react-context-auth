@@ -1,17 +1,15 @@
-import axios from "axios";
+import axios from "../utils/axiosClient";
 import { FaPlus } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import Card from "../components/Card/Card";
 import { Link } from "react-router-dom";
-
-const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 const Posts = () => {
 
     const [posts, setPosts] = useState(null);
 
     const fetchPosts = async () => {
-        const res = await axios.get(`${apiUrl}/posts`);
+        const res = await axios.get('/posts');
         const newPosts = res.data.data;
         setPosts(newPosts);
     }

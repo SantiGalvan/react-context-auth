@@ -2,15 +2,14 @@ import Form from "../components/Forms/Form";
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import axios from "axios";
-const apiUrl = import.meta.env.VITE_BASE_API_URL;
+import axios from "../utils/axiosClient.js";
 
 const PostCreate = () => {
 
     const navigate = useNavigate();
 
     const createPost = async (formData) => {
-        const res = await axios.post(`${apiUrl}/posts`, formData, {
+        const res = await axios.post('/posts', formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }

@@ -1,10 +1,7 @@
 import { TiPlus } from "react-icons/ti";
 import { BsArrowClockwise } from "react-icons/bs";
-import axios from "axios";
 import { useState } from "react";
 import { useGlobal } from "../../contexts/GlobalContext";
-
-const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 const Form = ({ dataEdit, onSubmit }) => {
 

@@ -1,10 +1,8 @@
-import axios from "axios";
+import axios from "../utils/axiosClient.js";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import Form from "../components/Forms/Form";
-
-const apiUrl = import.meta.env.VITE_BASE_API_URL;
 
 const PostEdit = () => {
 
@@ -15,7 +13,7 @@ const PostEdit = () => {
     const [dataToEdit, setDataToEdit] = useState(null);
 
     const fetchDataToEdit = async () => {
-        const res = await axios.get(`${apiUrl}/posts/${slug}`);
+        const res = await axios.get(`/posts/${slug}`);
         const { title, content, image, categoryId, published, tags } = res.data;
         setDataToEdit({
             title,
@@ -35,7 +33,7 @@ const PostEdit = () => {
     }, [slug]);
 
     const updatePost = async (formData) => {
-        const res = await axios.put(`${apiUrl}/posts/${slug}`, formData, {
+        const res = await axios.put(`/posts/${slug}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
