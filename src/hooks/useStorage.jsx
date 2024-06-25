@@ -2,10 +2,17 @@ import { useState } from "react";
 
 const useStorage = (initialValue, itemKey) => {
 
-    const itemValue = localStorage.getItem(itemKey);
-    if (itemValue === null) localStorage.setItem(itemKey, JSON.stringify(itemValue));
 
-    const [state, setState] = useState(itemValue === null ? initialValue : itemValue === 'undefined' ? undefined : JSON.parse(itemValue));
+    const [state, setState] = useState(() => {
+        const itemValue = localStorage.getItem(itemKey);
+        if (itemValue === null) localStorage.setItem(itemKey, JSON.stringify(itemValue));
+
+        if (itemValue === null) {
+            return itemValue;
+        } else {
+            return itemValue === 'undefined' ? undefined : JSON.parse(itemValue);
+        }
+    });
 
     const changeState = (payload) => {
         if (typeof payload === 'function') {
