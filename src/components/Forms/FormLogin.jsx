@@ -1,8 +1,22 @@
+import { useState } from "react";
+
 const FormLogin = ({ submitForm }) => {
+
+    const initialData = {
+        email: '',
+        password: ''
+    }
+
+    const [formData, setFormData] = useState(initialData);
+
+    const changeData = (key, value) => {
+        setFormData(curr => ({ ...curr, [key]: value }));
+    }
 
     const handleSubmit = e => {
         e.preventDefault();
-        submitForm();
+        submitForm(formData);
+        setFormData(initialData);
     }
 
     return (
@@ -18,7 +32,8 @@ const FormLogin = ({ submitForm }) => {
                                 id="email"
                                 placeholder="Email"
                                 name="email"
-                                onChange={() => { }}
+                                value={formData.email}
+                                onChange={e => { changeData('email', e.target.value) }}
                             />
                         </div>
                     </div>
@@ -31,7 +46,8 @@ const FormLogin = ({ submitForm }) => {
                                 id="password"
                                 placeholder="Password"
                                 name="password"
-                                onChange={() => { }}
+                                value={formData.password}
+                                onChange={e => { changeData('password', e.target.value) }}
                             />
                         </div>
                     </div>
